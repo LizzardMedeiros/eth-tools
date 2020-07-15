@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import Web3Provider, { Connectors } from 'web3-react';
+import MyComponent from './MyComponent';
+
 import './App.css';
 
 function App() {
+  const { InjectedConnector } = Connectors;
+  //add infura connector
+  const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] });
+
+  const connectors = { MetaMask };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Web3Provider
+        connectors={connectors}
+        libraryName={'ethers.js'}
+      >
+        <MyComponent/>
+      </Web3Provider>
   );
 }
 
